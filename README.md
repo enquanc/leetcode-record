@@ -12,6 +12,7 @@
 - 依難度、狀態篩選
 - 點欄位標題排序
 - 統計總題數、已通過數、各難度題數
+- 依難度計分並加總已通過題目的總分(Easy 1 分、Medium 3 分、Hard 5 分)
 - 資料儲存在本機的 `data/records.json`,不需要額外資料庫
 
 ## 安裝
@@ -78,6 +79,7 @@ A simple local web tool for tracking your LeetCode practice history, including p
 - Filter by difficulty and status
 - Sort by clicking column headers
 - Stats for total problems solved, AC count, and count per difficulty
+- Score AC'd problems by difficulty and show the total (Easy = 1 pt, Medium = 3 pts, Hard = 5 pts)
 - Data is stored locally in `data/records.json` — no external database needed
 
 ## Installation

@@ -89,11 +89,16 @@ function applyFiltersAndSort(list) {
   return out;
 }
 
+const DIFFICULTY_SCORE = { Easy: 1, Medium: 3, Hard: 5 };
+
 function renderStats() {
   const total = records.length;
   const ac = records.filter(r => r.status === 'AC').length;
   const byDiff = { Easy: 0, Medium: 0, Hard: 0 };
   records.forEach(r => { if (byDiff[r.difficulty] !== undefined) byDiff[r.difficulty]++; });
+  const score = records
+    .filter(r => r.status === 'AC')
+    .reduce((sum, r) => sum + (DIFFICULTY_SCORE[r.difficulty] || 0), 0);
 
   document.getElementById('stats').innerHTML = `
     <span>總題數 <strong>${total}</strong></span>
@@ -101,6 +106,7 @@ function renderStats() {
     <span class="diff-Easy">Easy <strong>${byDiff.Easy}</strong></span>
     <span class="diff-Medium">Medium <strong>${byDiff.Medium}</strong></span>
     <span class="diff-Hard">Hard <strong>${byDiff.Hard}</strong></span>
+    <span>總分 <strong>${score}</strong></span>
   `;
 }
 
