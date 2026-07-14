@@ -7,68 +7,104 @@
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<div class="container">
-  <h1>LeetCode 刷題紀錄</h1>
+<div class="page">
+  <header class="page-header">
+    <h1>LeetCode 刷題紀錄</h1>
+    <p class="subtitle">記錄每一次刷題,追蹤進度與分數</p>
+  </header>
 
-  <form id="record-form">
-    <div class="form-row">
-      <input type="text" id="title" placeholder="題目名稱" required>
-      <select id="difficulty" required>
-        <option value="" disabled selected>難度</option>
-        <option value="Easy">Easy</option>
-        <option value="Medium">Medium</option>
-        <option value="Hard">Hard</option>
-      </select>
+  <section class="card" aria-labelledby="form-heading">
+    <h2 id="form-heading" class="card-title">新增 / 編輯紀錄</h2>
+    <form id="record-form">
+      <div class="form-grid">
+        <div class="field">
+          <label for="title">題目名稱</label>
+          <input type="text" id="title" placeholder="例如 Two Sum" required>
+        </div>
+        <div class="field">
+          <label for="difficulty">難度</label>
+          <select id="difficulty" required>
+            <option value="" disabled selected>請選擇難度</option>
+            <option value="Easy">Easy</option>
+            <option value="Medium">Medium</option>
+            <option value="Hard">Hard</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="tags">分類 / 標籤</label>
+          <input type="text" id="tags" placeholder="例如 Array, DP">
+        </div>
+        <div class="field">
+          <label for="date">日期</label>
+          <input type="date" id="date" required>
+        </div>
+        <div class="field">
+          <label for="status">狀態</label>
+          <select id="status" required>
+            <option value="" disabled selected>請選擇狀態</option>
+            <option value="AC">AC 通過</option>
+            <option value="未通過">未通過</option>
+            <option value="複習中">複習中</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="timeSpent">花費時間(分鐘)</label>
+          <input type="number" id="timeSpent" placeholder="例如 20" min="0">
+        </div>
+      </div>
+      <div class="form-actions">
+        <button type="submit" id="submit-btn">新增紀錄</button>
+        <button type="button" id="cancel-edit-btn" class="btn-ghost hidden">取消編輯</button>
+      </div>
+      <input type="hidden" id="edit-id">
+    </form>
+  </section>
+
+  <section class="stats" id="stats" aria-label="統計摘要"></section>
+
+  <section class="card">
+    <div class="filters">
+      <div class="field field-search">
+        <label for="search">搜尋</label>
+        <input type="text" id="search" placeholder="搜尋題目名稱或標籤">
+      </div>
+      <div class="field">
+        <label for="filter-difficulty">難度</label>
+        <select id="filter-difficulty">
+          <option value="">全部難度</option>
+          <option value="Easy">Easy</option>
+          <option value="Medium">Medium</option>
+          <option value="Hard">Hard</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="filter-status">狀態</label>
+        <select id="filter-status">
+          <option value="">全部狀態</option>
+          <option value="AC">AC 通過</option>
+          <option value="未通過">未通過</option>
+          <option value="複習中">複習中</option>
+        </select>
+      </div>
     </div>
-    <div class="form-row">
-      <input type="text" id="tags" placeholder="分類/標籤 (例如 Array, DP)">
-      <input type="date" id="date" required>
+
+    <div class="table-wrap">
+      <table id="record-table">
+        <thead>
+          <tr>
+            <th data-sort="title">題目</th>
+            <th data-sort="difficulty">難度</th>
+            <th data-sort="tags">標籤</th>
+            <th data-sort="date">日期</th>
+            <th data-sort="status">狀態</th>
+            <th data-sort="timeSpent">時間(分)</th>
+            <th class="col-actions">操作</th>
+          </tr>
+        </thead>
+        <tbody id="record-body"></tbody>
+      </table>
     </div>
-    <div class="form-row">
-      <select id="status" required>
-        <option value="" disabled selected>狀態</option>
-        <option value="AC">AC 通過</option>
-        <option value="未通過">未通過</option>
-        <option value="複習中">複習中</option>
-      </select>
-      <input type="number" id="timeSpent" placeholder="花費時間 (分鐘)" min="0">
-    </div>
-    <button type="submit" id="submit-btn">新增紀錄</button>
-    <input type="hidden" id="edit-id">
-  </form>
-
-  <div class="stats" id="stats"></div>
-
-  <div class="filters">
-    <input type="text" id="search" placeholder="搜尋題目名稱或標籤">
-    <select id="filter-difficulty">
-      <option value="">全部難度</option>
-      <option value="Easy">Easy</option>
-      <option value="Medium">Medium</option>
-      <option value="Hard">Hard</option>
-    </select>
-    <select id="filter-status">
-      <option value="">全部狀態</option>
-      <option value="AC">AC 通過</option>
-      <option value="未通過">未通過</option>
-      <option value="複習中">複習中</option>
-    </select>
-  </div>
-
-  <table id="record-table">
-    <thead>
-      <tr>
-        <th data-sort="title">題目</th>
-        <th data-sort="difficulty">難度</th>
-        <th data-sort="tags">標籤</th>
-        <th data-sort="date">日期</th>
-        <th data-sort="status">狀態</th>
-        <th data-sort="timeSpent">時間(分)</th>
-        <th>操作</th>
-      </tr>
-    </thead>
-    <tbody id="record-body"></tbody>
-  </table>
+  </section>
 </div>
 <script src="app.js"></script>
 </body>

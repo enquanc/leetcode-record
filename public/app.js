@@ -5,9 +5,12 @@ let sortAsc = false;
 const form = document.getElementById('record-form');
 const editIdInput = document.getElementById('edit-id');
 const submitBtn = document.getElementById('submit-btn');
+const cancelEditBtn = document.getElementById('cancel-edit-btn');
 const searchInput = document.getElementById('search');
 const filterDifficulty = document.getElementById('filter-difficulty');
 const filterStatus = document.getElementById('filter-status');
+
+const STATUS_LABEL = { AC: 'AC 通過', '未通過': '未通過', '複習中': '複習中' };
 
 async function fetchRecords() {
   const res = await fetch('/api/records');
@@ -39,9 +42,7 @@ async function saveRecord(e) {
       body: JSON.stringify(payload)
     });
   }
-  form.reset();
-  editIdInput.value = '';
-  submitBtn.textContent = '新增紀錄';
+  exitEditMode();
   fetchRecords();
 }
 
@@ -56,7 +57,15 @@ function startEdit(id) {
   document.getElementById('timeSpent').value = r.timeSpent ?? '';
   editIdInput.value = r.id;
   submitBtn.textContent = '更新紀錄';
+  cancelEditBtn.classList.remove('hidden');
   window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function exitEditMode() {
+  form.reset();
+  editIdInput.value = '';
+  submitBtn.textContent = '新增紀錄';
+  cancelEditBtn.classList.add('hidden');
 }
 
 async function deleteRecord(id) {
@@ -101,33 +110,76 @@ function renderStats() {
     .reduce((sum, r) => sum + (DIFFICULTY_SCORE[r.difficulty] || 0), 0);
 
   document.getElementById('stats').innerHTML = `
-    <span>總題數 <strong>${total}</strong></span>
-    <span>已通過 <strong>${ac}</strong></span>
-    <span class="diff-Easy">Easy <strong>${byDiff.Easy}</strong></span>
-    <span class="diff-Medium">Medium <strong>${byDiff.Medium}</strong></span>
-    <span class="diff-Hard">Hard <strong>${byDiff.Hard}</strong></span>
-    <span>總分 <strong>${score}</strong></span>
+    <div class="stat-tile">
+      <span class="stat-label">總題數</span>
+      <span class="stat-value">${total}</span>
+    </div>
+    <div class="stat-tile">
+      <span class="stat-label"><span class="stat-dot" style="background:var(--status-good)"></span>已通過</span>
+      <span class="stat-value">${ac}</span>
+    </div>
+    <div class="stat-tile">
+      <span class="stat-label"><span class="stat-dot" style="background:var(--diff-easy-text)"></span>Easy</span>
+      <span class="stat-value">${byDiff.Easy}</span>
+    </div>
+    <div class="stat-tile">
+      <span class="stat-label"><span class="stat-dot" style="background:var(--diff-medium-text)"></span>Medium</span>
+      <span class="stat-value">${byDiff.Medium}</span>
+    </div>
+    <div class="stat-tile">
+      <span class="stat-label"><span class="stat-dot" style="background:var(--diff-hard-text)"></span>Hard</span>
+      <span class="stat-value">${byDiff.Hard}</span>
+    </div>
+    <div class="stat-tile">
+      <span class="stat-label">總分</span>
+      <span class="stat-value">${score}</span>
+    </div>
   `;
 }
 
 function render() {
   renderStats();
+  updateSortIndicators();
   const list = applyFiltersAndSort(records);
   const tbody = document.getElementById('record-body');
+
+  if (list.length === 0) {
+    tbody.innerHTML = `
+      <tr><td colspan="7" class="empty-state">
+        ${records.length === 0 ? '尚無刷題紀錄,新增第一筆吧!' : '沒有符合條件的紀錄'}
+      </td></tr>
+    `;
+    return;
+  }
+
   tbody.innerHTML = list.map(r => `
     <tr>
-      <td>${escapeHtml(r.title)}</td>
-      <td class="diff-${r.difficulty}">${r.difficulty}</td>
-      <td>${escapeHtml(r.tags)}</td>
-      <td>${r.date}</td>
-      <td class="status-${r.status}">${r.status}</td>
-      <td>${r.timeSpent ?? '-'}</td>
+      <td class="col-title">${escapeHtml(r.title)}</td>
+      <td><span class="badge badge-${r.difficulty}">${r.difficulty}</span></td>
+      <td class="col-tags">${escapeHtml(r.tags) || '-'}</td>
+      <td class="col-date">${r.date}</td>
+      <td><span class="status-cell"><span class="status-dot status-dot-${r.status}"></span>${STATUS_LABEL[r.status] || r.status}</span></td>
+      <td class="col-time">${r.timeSpent ?? '-'}</td>
       <td class="row-actions">
         <button onclick="startEdit('${r.id}')">編輯</button>
         <button class="delete" onclick="deleteRecord('${r.id}')">刪除</button>
       </td>
     </tr>
   `).join('');
+}
+
+function updateSortIndicators() {
+  document.querySelectorAll('th[data-sort]').forEach(th => {
+    th.classList.toggle('sorted', th.dataset.sort === sortKey);
+    const existing = th.querySelector('.sort-arrow');
+    if (existing) existing.remove();
+    if (th.dataset.sort === sortKey) {
+      const arrow = document.createElement('span');
+      arrow.className = 'sort-arrow';
+      arrow.textContent = sortAsc ? '▲' : '▼';
+      th.appendChild(arrow);
+    }
+  });
 }
 
 function escapeHtml(str) {
@@ -146,6 +198,7 @@ document.querySelectorAll('th[data-sort]').forEach(th => {
 });
 
 form.addEventListener('submit', saveRecord);
+cancelEditBtn.addEventListener('click', exitEditMode);
 searchInput.addEventListener('input', render);
 filterDifficulty.addEventListener('change', render);
 filterStatus.addEventListener('change', render);
