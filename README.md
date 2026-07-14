@@ -1,0 +1,56 @@
+# LeetCode 刷題紀錄
+
+一個簡單的本地網頁工具,用來記錄自己在 LeetCode 上的刷題紀錄,包含題目名稱、難度、標籤、日期、狀態與花費時間,並支援搜尋、篩選、排序。
+
+## 功能
+
+- 新增 / 編輯 / 刪除刷題紀錄
+- 記錄欄位:題目名稱、難度(Easy/Medium/Hard)、標籤、日期、狀態(AC 通過 / 未通過 / 複習中)、花費時間(分鐘)
+- 依題目名稱或標籤搜尋
+- 依難度、狀態篩選
+- 點欄位標題排序
+- 統計總題數、已通過數、各難度題數
+- 資料儲存在本機的 `data/records.json`,不需要額外資料庫
+
+## 安裝
+
+1. 安裝 [Node.js](https://nodejs.org)(建議 LTS 版本)
+2. 在專案資料夾安裝依賴:
+
+   ```bash
+   npm install
+   ```
+
+## 使用方式
+
+啟動伺服器:
+
+```bash
+npm start
+```
+
+接著在瀏覽器開啟 [http://localhost:3000](http://localhost:3000) 即可開始記錄刷題狀況。
+
+伺服器預設監聽 port 3000,資料會自動儲存在 `data/records.json`,關閉伺服器不會遺失資料。
+
+## 專案結構
+
+```
+.
+├── server.js          # Express 後端與 API
+├── data/
+│   └── records.json   # 刷題紀錄資料(執行時自動建立)
+└── public/
+    ├── index.html      # 前端頁面
+    ├── style.css       # 樣式
+    └── app.js          # 前端邏輯(表單、篩選、排序、API 呼叫)
+```
+
+## API
+
+| 方法   | 路徑                | 說明             |
+|--------|---------------------|------------------|
+| GET    | `/api/records`      | 取得所有紀錄     |
+| POST   | `/api/records`      | 新增一筆紀錄     |
+| PUT    | `/api/records/:id`  | 更新指定紀錄     |
+| DELETE | `/api/records/:id`  | 刪除指定紀錄     |

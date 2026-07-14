@@ -1,0 +1,117 @@
+* { box-sizing: border-box; }
+
+body {
+  font-family: -apple-system, "Segoe UI", "Microsoft JhengHei", sans-serif;
+  background: #f5f6f8;
+  color: #1f2328;
+  margin: 0;
+  padding: 2rem 1rem;
+}
+
+.container {
+  max-width: 900px;
+  margin: 0 auto;
+  background: #fff;
+  border-radius: 8px;
+  padding: 1.5rem 2rem 2rem;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+}
+
+h1 {
+  font-size: 1.5rem;
+  margin-bottom: 1.2rem;
+}
+
+.form-row {
+  display: flex;
+  gap: 0.75rem;
+  margin-bottom: 0.75rem;
+}
+
+.form-row input, .form-row select {
+  flex: 1;
+  padding: 0.5rem 0.6rem;
+  border: 1px solid #d0d5dd;
+  border-radius: 6px;
+  font-size: 0.95rem;
+}
+
+#submit-btn {
+  padding: 0.55rem 1.3rem;
+  background: #2f6feb;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  font-size: 0.95rem;
+  cursor: pointer;
+}
+
+#submit-btn:hover { background: #2258c7; }
+
+.stats {
+  display: flex;
+  gap: 1.5rem;
+  margin: 1.2rem 0;
+  font-size: 0.9rem;
+  color: #444;
+}
+
+.stats span strong {
+  color: #1f2328;
+  font-size: 1.1rem;
+}
+
+.filters {
+  display: flex;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.filters input, .filters select {
+  padding: 0.4rem 0.6rem;
+  border: 1px solid #d0d5dd;
+  border-radius: 6px;
+  font-size: 0.9rem;
+}
+
+.filters input { flex: 1; }
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+}
+
+th, td {
+  text-align: left;
+  padding: 0.55rem 0.6rem;
+  border-bottom: 1px solid #eee;
+}
+
+th {
+  cursor: pointer;
+  color: #555;
+  user-select: none;
+  white-space: nowrap;
+}
+
+th:hover { color: #2f6feb; }
+
+td.status-AC { color: #12805c; font-weight: 600; }
+td.status-未通過 { color: #c0392b; font-weight: 600; }
+td.status-複習中 { color: #b7791f; font-weight: 600; }
+
+.diff-Easy { color: #12805c; }
+.diff-Medium { color: #b7791f; }
+.diff-Hard { color: #c0392b; }
+
+.row-actions button {
+  border: none;
+  background: none;
+  cursor: pointer;
+  font-size: 0.85rem;
+  margin-right: 0.4rem;
+  color: #2f6feb;
+}
+
+.row-actions button.delete { color: #c0392b; }
