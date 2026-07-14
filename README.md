@@ -16,7 +16,7 @@
 
 ## 安裝
 
-1. 安裝 [Node.js](https://nodejs.org)(建議 LTS 版本)
+1. 安裝 <a href="https://nodejs.org" target="_blank" rel="noopener noreferrer">Node.js</a>(建議 LTS 版本)
 2. 在專案資料夾安裝依賴:
 
    ```bash
@@ -38,7 +38,7 @@
    npm start
    ```
 
-接著在瀏覽器開啟 [http://localhost:3000](http://localhost:3000) 即可開始記錄刷題狀況。
+接著在瀏覽器開啟 <a href="http://localhost:3000" target="_blank" rel="noopener noreferrer">http://localhost:3000</a> 即可開始記錄刷題狀況。
 
 伺服器預設監聽 port 3000,資料會自動儲存在 `data/records.json`,關閉伺服器不會遺失資料。
 
@@ -82,7 +82,7 @@ A simple local web tool for tracking your LeetCode practice history, including p
 
 ## Installation
 
-1. Install [Node.js](https://nodejs.org) (LTS version recommended)
+1. Install <a href="https://nodejs.org" target="_blank" rel="noopener noreferrer">Node.js</a> (LTS version recommended)
 2. Install dependencies in the project folder:
 
    ```bash
@@ -104,7 +104,7 @@ A simple local web tool for tracking your LeetCode practice history, including p
    npm start
    ```
 
-Then open [http://localhost:3000](http://localhost:3000) in your browser to start tracking your practice.
+Then open <a href="http://localhost:3000" target="_blank" rel="noopener noreferrer">http://localhost:3000</a> in your browser to start tracking your practice.
 
 The server listens on port 3000 by default. Data is automatically saved to `data/records.json`, so it persists across restarts.
 
