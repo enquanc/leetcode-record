@@ -54,3 +54,62 @@ npm start
 | POST   | `/api/records`      | 新增一筆紀錄     |
 | PUT    | `/api/records/:id`  | 更新指定紀錄     |
 | DELETE | `/api/records/:id`  | 刪除指定紀錄     |
+
+---
+
+# LeetCode Practice Tracker
+
+A simple local web tool for tracking your LeetCode practice history, including problem title, difficulty, tags, date, status, and time spent — with search, filtering, and sorting support.
+
+## Features
+
+- Add / edit / delete practice records
+- Record fields: problem title, difficulty (Easy/Medium/Hard), tags, date, status (AC / Failed / Reviewing), time spent (minutes)
+- Search by problem title or tags
+- Filter by difficulty and status
+- Sort by clicking column headers
+- Stats for total problems solved, AC count, and count per difficulty
+- Data is stored locally in `data/records.json` — no external database needed
+
+## Installation
+
+1. Install [Node.js](https://nodejs.org) (LTS version recommended)
+2. Install dependencies in the project folder:
+
+   ```bash
+   npm install
+   ```
+
+## Usage
+
+Start the server:
+
+```bash
+npm start
+```
+
+Then open [http://localhost:3000](http://localhost:3000) in your browser to start tracking your practice.
+
+The server listens on port 3000 by default. Data is automatically saved to `data/records.json`, so it persists across restarts.
+
+## Project Structure
+
+```
+.
+├── server.js          # Express backend and API
+├── data/
+│   └── records.json   # Practice records data (auto-created at runtime)
+└── public/
+    ├── index.html      # Frontend page
+    ├── style.css       # Styles
+    └── app.js          # Frontend logic (form, filtering, sorting, API calls)
+```
+
+## API
+
+| Method | Path                | Description         |
+|--------|---------------------|----------------------|
+| GET    | `/api/records`      | Get all records      |
+| POST   | `/api/records`      | Create a new record  |
+| PUT    | `/api/records/:id`  | Update a record      |
+| DELETE | `/api/records/:id`  | Delete a record      |
