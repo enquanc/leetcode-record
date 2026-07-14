@@ -1,3 +1,5 @@
+**[中文](#leetcode-刷題紀錄) | [English](#leetcode-practice-tracker)**
+
 # LeetCode 刷題紀錄
 
 一個簡單的本地網頁工具,用來記錄自己在 LeetCode 上的刷題紀錄,包含題目名稱、難度、標籤、日期、狀態與花費時間,並支援搜尋、篩選、排序。
@@ -23,11 +25,18 @@
 
 ## 使用方式
 
-啟動伺服器:
+1. 複製專案:
 
-```bash
-npm start
-```
+   ```bash
+   git clone https://github.com/enquanc/leetcode-record.git
+   cd leetcode-record
+   ```
+
+2. 啟動伺服器:
+
+   ```bash
+   npm start
+   ```
 
 接著在瀏覽器開啟 [http://localhost:3000](http://localhost:3000) 即可開始記錄刷題狀況。
 
@@ -82,11 +91,18 @@ A simple local web tool for tracking your LeetCode practice history, including p
 
 ## Usage
 
-Start the server:
+1. Clone the repository:
 
-```bash
-npm start
-```
+   ```bash
+   git clone https://github.com/enquanc/leetcode-record.git
+   cd leetcode-record
+   ```
+
+2. Start the server:
+
+   ```bash
+   npm start
+   ```
 
 Then open [http://localhost:3000](http://localhost:3000) in your browser to start tracking your practice.
 
