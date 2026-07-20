@@ -39,6 +39,12 @@
    npm start
    ```
 
+   若在 PowerShell 執行 `npm start` 時出現「因為這個系統上已停用指令碼執行」的錯誤,可改用以下方式啟動,不受此限制影響:
+
+   ```bash
+   node server.js
+   ```
+
 接著在瀏覽器開啟 [http://localhost:3000](http://localhost:3000) 即可開始記錄刷題狀況。
 
 伺服器預設監聽 port 3000,資料會自動儲存在 `data/records.json`,關閉伺服器不會遺失資料。
@@ -104,6 +110,12 @@ A simple local web tool for tracking your LeetCode practice history, including p
 
    ```bash
    npm start
+   ```
+
+   If PowerShell blocks `npm start` with a "running scripts is disabled on this system" error, run this instead — it bypasses the restriction:
+
+   ```bash
+   node server.js
    ```
 
 Then open [http://localhost:3000](http://localhost:3000) in your browser to start tracking your practice.
